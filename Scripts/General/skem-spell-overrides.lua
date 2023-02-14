@@ -840,9 +840,11 @@ mem.hookcall(0x0048875B, 1, 1, changedCharacterCalcStatBonusByItems)
 local function modifiedMonsterCalculateDamage(d, def, monsterPointer, attackType)
 
 	-- get monster
-
 	local monsterIndex, monster = GetMonster(d.edi)
+local ADAPTIVE = string.lower(SETTINGS["AdaptiveMonsterMode"])
+if ((ADAPTIVE == "default") or (ADAPTIVE == "disabled")) then
 	Mlevel = Game.MonstersTxt[monster.Id].Level
+else Mlevel = monsterArray["Level"]
 	-- execute original code
 
 	local damage = def(monsterPointer, attackType)
